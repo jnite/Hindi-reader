@@ -21,7 +21,7 @@
 </form>
 
 <h2>Response: </h2>
-<pre id="response"></pre>
+<pre id="doc"></pre>
 
 <h2>Choose a story to read by entering A, B, or C:</h2>
 
@@ -34,8 +34,9 @@
 </form>
 
 <h2>Response: </h2>
-<pre id="doc"></pre>
-
+<b id="titleElement"></b>
+<br>
+<div id="textElement"></div>
 
 </body>
 
@@ -77,11 +78,13 @@ async function handleSubmit2(event) {
             'Content-Type': 'application/json',
             }
         });
-    //const myJson = await response.json();
-    const myJson = await response;
+    const myJson = await response.json();
     console.log(myJson);
-    //document.getElementById('doc').textContent = JSON.stringify(myJson, undefined, 2);
-    document.getElementById('doc').textContent = myJson;
+    const titleVal = myJson.title;
+    const textVal = myJson.text;
+    document.getElementById('titleElement').textContent = titleVal;
+    document.getElementById('textElement').textContent = JSON.stringify(textVal);
+    // document.getElementById('doc').textContent = JSON.stringify(myJson, undefined, 2);
 }
 const form2 = document.getElementById("form2");
 form2.addEventListener("submit", async (e) => handleSubmit2(e), false);

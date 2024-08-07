@@ -1,5 +1,6 @@
 import model.classes
 import model.docs
+from model.docs import HindiDoc
 import db.mysql_repo
 
 class Services:
@@ -11,16 +12,15 @@ class Services:
 
 
     # USE CASE 1 Hindi texts - user can choose a document in Devanagari to read.
-    def show_doc(self, val: str) -> str:
-        # print("Hindi Stories:")
-        # for key in self.story_dict.keys():
-        #     print(f"{key}. {self.story_dict[key].title}")
-        # print("Choose a story to read by entering A, B, or C:\n")
-        # self.val = val
-        if val not in self.story_dict.keys():
-            return 'Not a valid story option'
-        else:
-            return self.story_dict[val]
+    def show_doc(self, val: str):
+        # default to a not found story
+        hindi_doc = HindiDoc('', 'Not a valid story option', 'Please enter A, B, or C.')
+        if val in self.story_dict.keys():
+            hindi_doc = self.story_dict[val]
+
+        # return HindiDoc object as json data
+        return hindi_doc.data
+
 
 
     # # USE CASE 1 Hindi texts - user can choose a document in Devanagari to read.
